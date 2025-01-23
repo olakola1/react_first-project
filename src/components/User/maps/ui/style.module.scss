@@ -1,0 +1,15 @@
+@use '../../../../styles/globals' as globals;
+
+.userWrapper {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  font: globals.$h5-700-24-RFDewi;
+}
+
+.iframe {
+  margin: 10px 0;
+}

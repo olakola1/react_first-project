@@ -1,0 +1,27 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    background: #101010;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.nav {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 40px;
+}
+
+.navbar {
+    color : #ffffff;
+    font-size: 18px;
+}
