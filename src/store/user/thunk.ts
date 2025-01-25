@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const fetchUserData = createAsyncThunk('users/fetchUserData', async () => {
-    const response = await fetch('https://mocki.io/v1/c8b5635a-90f1-4d8e-b5a9-a77a79fa4c98');
+    const response = await fetch('https://mocki.io/v1/febb946e-eeb0-4d2d-bb21-da0ef18e8323');
     return await response.json();
 });
