@@ -6,9 +6,7 @@ import {fetchUserData} from "../../../store/user/thunk.ts";
 import {getUser} from "../../../store/user/selector.ts";
 import {Outlet} from "react-router";
 import {Header} from "../../../components/Header";
-import {Input} from "../../../components/Input"
-
-
+import {CardContainer} from "../../../components/Card";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
@@ -21,7 +19,7 @@ export const HomePage = () => {
     return (
         <Container>
             <Header />
-            <Input />
+            <CardContainer />
             <Outlet></Outlet>
         </Container>
     );

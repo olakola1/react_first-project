@@ -1,12 +1,13 @@
 .container {
     max-width: 1440px;
     margin: 0 auto;
-    background: #101010;
+    background: #ffffff;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    border-bottom: #101010 solid 1px;
 }
 
 .icon {
@@ -21,7 +22,18 @@
     padding: 40px;
 }
 
+.form_input {
+    height: 30px;
+    width: 300px;
+    font-size: 18px;
+    padding: 0  5px;
+}
+
+.button_input {
+
+}
+
 .navbar {
-    color : #ffffff;
+    color : #101010;
     font-size: 18px;
 }
