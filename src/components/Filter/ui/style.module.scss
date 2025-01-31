@@ -1,0 +1,40 @@
+.filter_container {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Стили для кнопок фильтрации */
+.filter_button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filter_button:hover {
+  background-color: #3e8e41;
+}
+
+/* Стили для выпадающего списка фильтра */
+.filter_select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.filter_select select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Стили для результата фильтрации */
+.filter_result {
+  padding: 10px;
+  font-size: 16px;
+}

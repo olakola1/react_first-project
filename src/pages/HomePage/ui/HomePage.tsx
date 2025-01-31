@@ -7,6 +7,7 @@ import {CardContainer} from "../../../components/Card";
 import {CardMaps} from "../../../components/Card/maps";
 
 
+
 export const HomePage = () => {
     const dispatch = useDispatch();
     const { data } = useSelector(getCard);
@@ -17,9 +18,11 @@ export const HomePage = () => {
 
 
     return (
-        <CardContainer>
-            <Header />
-            <CardMaps data={data}/>
-        </CardContainer>
+        <div>
+            <Header/>
+            <CardContainer>
+                <CardMaps data={data}/>
+            </CardContainer>
+        </div>
     );
 };

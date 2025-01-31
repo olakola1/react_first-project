@@ -1,0 +1,12 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    background: #ffffff;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    border-bottom: #101010 solid 1px;
+}
+
