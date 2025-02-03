@@ -1,18 +1,9 @@
 import style from './style.module.scss'
+import {IProps} from "../../../../interface/interface";
 
-interface IData {
-    id: number;
-    name: string;
-    ingredients: string;
-    time: string;
-    image: string;
-}
-
-interface IProps {
-    data: IData[];
-}
 
 export const CardMaps = ({ data }: IProps) => {
+
     return (
         <>
             {data && (
@@ -37,3 +28,4 @@ export const CardMaps = ({ data }: IProps) => {
         </>
     )
 }
+

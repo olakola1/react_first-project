@@ -6,11 +6,13 @@ import { CatalogPage} from "./pages";
 import store from "./store/store.ts";
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from "react-router";
+import {Header} from './components/Header';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <Provider store={store}>
             <BrowserRouter>
+                <Header/>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/home" element={<HomePage />} />

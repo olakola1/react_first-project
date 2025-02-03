@@ -1,11 +1,4 @@
-interface IDesert {
-    id: number;
-    name: string;
-    ingredients: string;
-    time: string;
-    image: string;
-    category: string,
-}
+import {IDesert} from "../../interface/interface";
 
 export const desert: IDesert [] = [
     {

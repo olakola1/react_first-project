@@ -1,6 +1,33 @@
-.form_input {
-    height: 30px;
-    width: 300px;
-    font-size: 18px;
+.search_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.search_input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.button_input {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_input svg {
+    width: 20px;
+    height: 20px;
+    fill: #333;
+}
+
+.button_input:hover svg {
+    fill: #089e1e;
+}

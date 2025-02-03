@@ -29,11 +29,16 @@
     padding: 0  5px;
 }
 
-.button_input {
-
-}
-
 .navbar {
     color : #101010;
     font-size: 18px;
+}
+
+.button_new_recipe {
+    padding: 10px 20px;
+    background-color: #089e1e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from './style.module.scss';
 import logo from '../../../img/Logo.svg';
 import icon from '../../../img/telegram.png';
 import {Search} from "../../Search";
-import {Link} from "react-router";
+import {Link} from "react-router-dom";
+import {Recipe} from "../../../interface/interface";
+import {RecipeModal} from "../../Modal";
+import { useDispatch } from 'react-redux';
+import { addRecipe } from '../../../store/catalog/recipeReduser.ts';
 
 
 export const Header = () => {
+    const dispatch = useDispatch();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleSaveRecipe = (recipe: Recipe) => {
+        dispatch(addRecipe(recipe));
+        setIsModalOpen(false);
+    };
 
     return (
         <div className={style.container}>
@@ -17,17 +28,25 @@ export const Header = () => {
                 </Link>
 
             <nav>
-
                 <div className={style.nav}>
                     <Search/>
-                    <Link to="/catalog">
-                    <a className={style.navbar} href="/">Моя книга рецептов</a>
+                    <Link to="/catalog"
+                    className={style.navbar}> Моя книга рецептов
                         </Link>
+                    <button className={style.button_new_recipe} onClick={() => setIsModalOpen(true)}>
+                        Добавить рецепт
+                    </button>
                     <a href="https://t.me/a_useful_recipe_bot">
                         <img src={icon} alt="Телеграм" className={style.icon} />
                     </a>
                 </div>
             </nav>
+            <RecipeModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={handleSaveRecipe}
+            />
+
         </div>
     );
 };
