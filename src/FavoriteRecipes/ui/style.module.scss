@@ -1,4 +1,4 @@
-.container_catalog {
+.container_favorite {
   display: flex;
   flex-wrap: wrap;
   gap: 60px;
@@ -7,7 +7,7 @@
   margin-top:40px ;
 }
 
-.catalog_cardWrapper{
+.catalog_favorite_wrapper{
   display: flex;
   flex-direction: column;
   width: 320px;

@@ -7,7 +7,8 @@ import {Link} from "react-router-dom";
 import {Recipe} from "../../../interface/interface";
 import {RecipeModal} from "../../Modal";
 import { useDispatch } from 'react-redux';
-import { addRecipe } from '../../../store/catalog/recipeReduser.ts';
+import {addRecipe} from "../../../store/catalog/recipeReduser.ts";
+
 
 
 export const Header = () => {
@@ -26,13 +27,15 @@ export const Header = () => {
                 <img src={logo} alt="Логотип" />
             </div>
                 </Link>
-
             <nav>
                 <div className={style.nav}>
                     <Search/>
                     <Link to="/catalog"
                     className={style.navbar}> Моя книга рецептов
                         </Link>
+                    <Link to="/favorite"
+                          className={style.navbar}> Любимые рецепты
+                    </Link>
                     <button className={style.button_new_recipe} onClick={() => setIsModalOpen(true)}>
                         Добавить рецепт
                     </button>

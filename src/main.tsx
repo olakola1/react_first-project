@@ -7,6 +7,7 @@ import store from "./store/store.ts";
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from "react-router";
 import {Header} from './components/Header';
+import {FavoriteRecipes} from "./FavoriteRecipes";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -14,9 +15,9 @@ createRoot(document.getElementById('root')!).render(
             <BrowserRouter>
                 <Header/>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/catalog" element={<CatalogPage />} />
+                    <Route path="/favorite" element={<FavoriteRecipes />} />
                 </Routes>
             </BrowserRouter>
         </Provider>

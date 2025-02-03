@@ -1,1 +1,0 @@
-export const getRecipe = (state: any) => state.recipe;

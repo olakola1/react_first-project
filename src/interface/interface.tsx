@@ -3,6 +3,12 @@ export interface Recipe {
     ingredients: string;
     time: string;
     photo: string;
+
+}
+
+export interface ApiResponse {
+    data: Recipe[];
+    status: string
 }
 
 export interface ModalIProps {

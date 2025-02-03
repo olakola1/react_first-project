@@ -1,1 +1,0 @@
-export {CatalogMaps} from '../maps/ui/CatalogMaps.tsx'
