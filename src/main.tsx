@@ -5,9 +5,9 @@ import { HomePage } from "./pages";
 import { CatalogPage} from "./pages";
 import store from "./store/store.ts";
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {Header} from './components/Header';
-import {FavoriteRecipes} from "./FavoriteRecipes";
+import {FavoriteRecipes} from "./components/FavoriteRecipes";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
             <BrowserRouter>
                 <Header/>
                 <Routes>
+                    <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/catalog" element={<CatalogPage />} />
                     <Route path="/favorite" element={<FavoriteRecipes />} />

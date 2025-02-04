@@ -11,7 +11,7 @@ const recipeSlice = createSlice({
             state.push(action.payload);
         },
         deleteRecipe(state, action: PayloadAction<number>) {
-            state.splice(action.payload, 1); // Удаляем рецепт по индексу
+            return state.filter((_, index) => index !== action.payload);
         },
     }
 });
