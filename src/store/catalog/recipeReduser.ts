@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 export interface Recipe {
+    id: number;
     name: string;
     ingredients: string;
     time: string;
-    photo: string;
+    image: string;
 }
 
-const initialState: Recipe[] = JSON.parse(localStorage.getItem('recipes') || '[]');
+export const initialState:
+    Recipe[] = JSON.parse(localStorage.getItem('recipes') || '[]');
 
 const recipeSlice = createSlice({
     name: 'recipes',

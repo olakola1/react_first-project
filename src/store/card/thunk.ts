@@ -6,7 +6,7 @@ export const fetchDesertData = createAsyncThunk('card/fetchDesertData', async ()
 });
 
 export const fetchSoupData = createAsyncThunk('card/fetchSoupData', async () => {
-    const response = await fetch('https://mocki.io/v1/f1ed3857-fb83-480e-9638-13db71fb293e');
+    const response = await fetch('https://mocki.io/v1/9d42dca1-db73-437f-95e9-2a3c7b4b9436');
     return await response.json();
 });
 

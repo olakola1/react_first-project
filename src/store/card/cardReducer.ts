@@ -26,14 +26,18 @@ export interface HotterData  {
     image: string;
 }
 
-interface CardState {
+export interface CardState {
     data: DesertData[];
+    soup: SoupData[];
+    hotter: HotterData[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: CardState = {
+export const initialState: CardState = {
     data: [],
+    soup: [],
+    hotter: [],
     loading: false,
     error: null,
 };
@@ -60,7 +64,7 @@ const cardSlice = createSlice({
             })
             .addCase(fetchSoupData.fulfilled, (state, action) => {
                 state.loading = false;
-                state.data = action.payload;
+                state.soup = action.payload;
             })
             .addCase(fetchSoupData.rejected, (state, action) => {
                 state.loading = false;
@@ -72,7 +76,7 @@ const cardSlice = createSlice({
 
             .addCase(fetchHotterData.fulfilled, (state, action) => {
                     state.loading = false;
-                    state.data = action.payload;
+                    state.hotter = action.payload;
             })
             .addCase(fetchHotterData.rejected, (state, action) => {
                 state.loading = false;

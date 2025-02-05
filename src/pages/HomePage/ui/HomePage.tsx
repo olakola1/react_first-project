@@ -7,7 +7,7 @@ import {CardMaps} from "../../../components/Card/maps";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-    const { data } = useSelector(getCard);
+    const { allDishes } = useSelector(getCard);
 
     useEffect(() => {
         dispatch(fetchDesertData() as any)
@@ -26,7 +26,7 @@ export const HomePage = () => {
     return (
         <div>
             <CardContainer>
-                <CardMaps data={data}/>
+                <CardMaps allDishes={allDishes}/>
             </CardContainer>
         </div>
     );
