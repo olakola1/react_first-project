@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from './style.module.scss';
 
+interface ISearchProps {
+    onSearch: (value: string) => void;
+}
+export const Search =({onSearch}:ISearchProps) => {
+        const [query, setQuery] = useState('');
 
-export const Search =() => {
-    return (
+        const handleChange = (event) => {
+            const value = event.target.value;
+            setQuery(value);
+            onSearch(value); // Передаем значение вверх
+        };
+
+        return (
         <div className={style.search_container}>
             <input className={style.search_input}
                    type={"text"}
-                   placeholder="Поиск"/>
+                   placeholder="Поиск"
+                   value={query}
+                   onChange={handleChange}
+            />
             <button className={style.button_input}>
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20"
                      height="20">

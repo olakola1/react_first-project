@@ -10,8 +10,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addRecipe} from "../../../store/catalog/recipeReduser.ts";
 import {RootState} from "../../../store/store";
 
-
-
 export const Header = () => {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);

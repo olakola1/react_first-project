@@ -28,12 +28,11 @@ export const CardMaps = ({ allDishes }: CardMapsProps) => {
         dispatch(addToFavorites(recipe));
     };
 
-    // Combine all dishes here
     const combinedDishes = [...desertData, ...soupData, ...hotterData, ...recipes, ...allDishes ||[]];
 
     return (
         <>
-            {combinedDishes.map((item: IDishes, index: number) => ( // Provide types for item and index
+            {combinedDishes.map((item: IDishes, index: number) => (
                 <div className={style.cardWrapper} key={index}>
                     {item.image && <img className={style.img_desert} src={item.image} alt={item.name} />}
                     <h3>{item.name}</h3>
