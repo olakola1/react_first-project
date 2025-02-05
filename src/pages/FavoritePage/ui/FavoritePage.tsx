@@ -1,8 +1,9 @@
 import React from "react";
-
 import {FavoriteRecipes} from "../../../components/FavoriteRecipes";
 
-export const FavoriteRecipesPage = () => {
+
+export const FavoritePage = () => {
+
     return (
         <div>
             <FavoriteRecipes/>

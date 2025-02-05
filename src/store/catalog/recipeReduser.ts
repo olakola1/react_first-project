@@ -1,17 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Recipe } from '../../interface/interface';
 
-const initialState: Recipe[] = [];
+
+export interface Recipe {
+    name: string;
+    ingredients: string;
+    time: string;
+    photo: string;
+}
+
+const initialState: Recipe[] = JSON.parse(localStorage.getItem('recipes') || '[]');
 
 const recipeSlice = createSlice({
     name: 'recipes',
     initialState,
     reducers: {
         addRecipe(state, action: PayloadAction<Recipe>) {
-            state.push(action.payload);
+            const newRecipe = { ...action.payload, id: state.length + 1 };
+            state.push(newRecipe);
+            localStorage.setItem('recipes', JSON.stringify(state));
         },
         deleteRecipe(state, action: PayloadAction<number>) {
-            return state.filter((_, index) => index !== action.payload);
+            const newState = state.filter((_, index) => index !== action.payload);
+            localStorage.setItem('recipes', JSON.stringify(newState));
+            return newState;
         },
     }
 });

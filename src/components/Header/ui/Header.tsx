@@ -4,7 +4,7 @@ import logo from '../../../img/Logo.svg';
 import icon from '../../../img/telegram.png';
 import {Search} from "../../Search";
 import {Link} from "react-router-dom";
-import {Recipe} from "../../../interface/interface";
+import {Recipe} from "../../../store/catalog/recipeReduser.ts";
 import {RecipeModal} from "../../Modal";
 import {useDispatch, useSelector} from 'react-redux';
 import {addRecipe} from "../../../store/catalog/recipeReduser.ts";
@@ -41,7 +41,8 @@ export const Header = () => {
                     <Link to="/favorite"
                           className={style.navbar}> Любимые рецепты {favoriteRecipes.length > 0 && `(${favoriteRecipes.length})`}
                     </Link>
-                    <button className={style.button_new_recipe} onClick={() => setIsModalOpen(true)}>
+                    <button className={style.button_new_recipe}
+                            onClick={() => setIsModalOpen(true)}>
                         Добавить рецепт
                     </button>
                     <a href="https://t.me/a_useful_recipe_bot">
@@ -54,7 +55,6 @@ export const Header = () => {
                 onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveRecipe}
             />
-
         </div>
     );
 };

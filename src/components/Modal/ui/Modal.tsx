@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import style from './style.module.scss';
-import {Recipe} from '../../../interface/interface'
-import {ModalIProps} from '../../../interface/interface'
+import {Recipe} from '../../../store/catalog/recipeReduser'
 
-export const RecipeModal: React.FC<ModalIProps> = ({ isOpen, onClose, onSave }) => {
+export interface ModalIProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onSave: (recipe: Recipe) => void;
+}
+
+export const RecipeModal = ({ isOpen, onClose, onSave }:ModalIProps) => {
     const [newRecipe, setNewRecipe] = useState<Recipe>({
         name: '',
         ingredients: '',

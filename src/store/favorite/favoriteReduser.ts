@@ -1,8 +1,8 @@
-import { Recipe} from "../../interface/interface.tsx";
-import { CardData} from "../card/cardReducer.ts";
+import { Recipe} from "../catalog/recipeReduser.ts";
+import { DesertData} from "../card/cardReducer.ts";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-type FavoriteRecipe = Recipe | CardData;
+type FavoriteRecipe = Recipe | DesertData;
 
 const initialState: FavoriteRecipe[] = [];
 

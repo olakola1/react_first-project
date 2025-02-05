@@ -1,7 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchCardData} from "./thunk.ts";
+import {fetchDesertData, fetchSoupData, fetchHotterData} from "./thunk.ts";
 
-export interface CardData {
+
+export interface DesertData {
+    id: number;
+    name: string;
+    ingredients: string;
+    time: string;
+    image: string;
+}
+
+export interface SoupData  {
+    id: number;
+    name: string;
+    ingredients: string;
+    time: string;
+    image: string;
+}
+
+export interface HotterData  {
     id: number;
     name: string;
     ingredients: string;
@@ -10,7 +27,7 @@ export interface CardData {
 }
 
 interface CardState {
-    data: CardData[];
+    data: DesertData[];
     loading: boolean;
     error: string | null;
 }
@@ -21,24 +38,46 @@ const initialState: CardState = {
     error: null,
 };
 
-
 const cardSlice = createSlice({
     name: 'card',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCardData.pending, (state) => {
+            .addCase(fetchDesertData.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchCardData.fulfilled, (state, action) => {
+            .addCase(fetchDesertData.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data = action.payload;
             })
-            .addCase(fetchCardData.rejected, (state, action) => {
+            .addCase(fetchDesertData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch';
-            });
+            })
+            .addCase(fetchSoupData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchSoupData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.data = action.payload;
+            })
+            .addCase(fetchSoupData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to fetch';
+            })
+            .addCase(fetchHotterData.pending, (state) => {
+                state.loading = true;
+            })
+
+            .addCase(fetchHotterData.fulfilled, (state, action) => {
+                    state.loading = false;
+                    state.data = action.payload;
+            })
+            .addCase(fetchHotterData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to fetch';
+        });
     },
 });
 
