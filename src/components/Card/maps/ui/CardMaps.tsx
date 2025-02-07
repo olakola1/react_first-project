@@ -1,27 +1,28 @@
 import style from './style.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../../store/store";
 import { addToFavorites } from "../../../../store/favorite/favoriteReduser.ts";
 import { Recipe } from "../../../../store/catalog/recipeReduser.ts";
 import { DesertData, HotterData, SoupData } from "../../../../store/card/cardReducer.ts";
+import { getRecipe } from "../../../../store/catalog/selectorCatalog.ts";
+import { getDesertData, getHotterData, getSoupData } from "../../../../store/card/selectorCard.ts";
 
 export interface IDishes {
     id: number;
     name: string;
     ingredients: string;
     time: string;
-    image: string;
+    image?: string;
 }
 
 interface CardMapsProps {
-    allDishes: IDishes[]; // Added allDishes to the CardMapsProps
+    allDishes: IDishes[];
 }
 
 export const CardMaps = ({ allDishes }: CardMapsProps) => {
-    const recipes = useSelector((state: RootState) => state.recipe);
-    const desertData = useSelector((state: RootState) => state.card.data);
-    const soupData = useSelector((state: RootState) => state.card.soup);
-    const hotterData = useSelector((state: RootState) => state.card.hotter);
+    const recipes = useSelector (getRecipe);
+    const desertData = useSelector (getDesertData);
+    const soupData = useSelector (getSoupData);
+    const hotterData = useSelector (getHotterData);
     const dispatch = useDispatch();
 
     const handleAddToFavorites = (recipe: Recipe | DesertData | SoupData | HotterData) => {
@@ -32,8 +33,8 @@ export const CardMaps = ({ allDishes }: CardMapsProps) => {
 
     return (
         <>
-            {combinedDishes.map((item: IDishes, index: number) => (
-                <div className={style.cardWrapper} key={index}>
+            {combinedDishes.map((item: IDishes) => (
+                <div key={item.name} className={style.cardWrapper}>
                     {item.image && <img className={style.img_desert} src={item.image} alt={item.name} />}
                     <h3>{item.name}</h3>
                     <p>{item.ingredients}</p>

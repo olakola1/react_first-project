@@ -1,30 +1,54 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/store.ts';
+import { useSelector, useDispatch} from 'react-redux';
 import style from './style.module.scss';
+import { getFavoriteRecipes } from "../../../store/favorite/selectorFavorites.ts";
+import { removeFromFavorites } from "../../../store/favorite/favoriteReduser.ts";
+
+
+export interface FavoriteRecipe {
+    id: number;
+    name: string;
+    ingredients: string;
+    time: string;
+    image?: string;
+}
 
 export const FavoriteRecipes = () => {
-    const favoriteRecipes = useSelector((state: RootState) => state.favoriteRecipes);
+    const favoriteRecipes = useSelector(getFavoriteRecipes);
+    const dispatch = useDispatch();
+
+    const handleRemoveRecipe = (id: number) => {
+        dispatch(removeFromFavorites(id));
+    };
+
 
     return (
         <div className={style.container_favorite}>
             <h2>Любимые рецепты</h2>
-            {favoriteRecipes.length === 0 ? (
-                <p>Тут пока пусто</p>
-            ) : (
-                favoriteRecipes.map((recipe, index) => (
-                    <div key={index} className={style.catalog_favorite_wrapper}>
-                        {'image' in recipe ? (
-                            <img src={recipe.image} alt={recipe.name} className={style.img_desert} />
-                        ) : (
-                            recipe.photo && <img src={recipe.photo} alt={recipe.name} className={style.img_desert} />
-                        )}
-                        <h3>{recipe.name}</h3>
-                        <p>{recipe.ingredients}</p>
-                        <p>Время приготовления: {recipe.time}</p>
-                    </div>
-                ))
+
+            {!favoriteRecipes.length && (
+                <div>
+                    <p>У тебя еще нет рецептов</p>
+                </div>
+            )}
+            {favoriteRecipes && (
+                <div className={style.catalog_favorite}>
+                    {favoriteRecipes.map((item: FavoriteRecipe) => (
+                        <div key={item.id} className={style.catalog_favorite_wrapper}>
+                            {'image' in item ? (
+                                <img src={item.image} alt={item.name} className={style.img_desert}/>
+                            ) : (
+                                item.image && <img src={item.image} alt={item.name} className={style.img_desert}/>
+                            )}
+                            <h3>{item.name}</h3>
+                            <p>{item.ingredients}</p>
+                            <p>Время приготовления: {item.time}</p>
+                            <button className={style.button_favorite} onClick={() => handleRemoveRecipe(item.id)} >Удалить
+                            </button>
+                        </div>
+                    ))}
+                </div>
             )}
         </div>
-    );
+    )
 };

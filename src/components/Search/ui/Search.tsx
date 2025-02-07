@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import style from './style.module.scss';
 
 interface ISearchProps {
-    onSearch: (value: string) => void;
+    onSearch: (query: string) => void;
 }
-export const Search =({onSearch}:ISearchProps) => {
-        const [query, setQuery] = useState('');
 
-        const handleChange = (event) => {
-            const value = event.target.value;
-            setQuery(value);
-            onSearch(value); // Передаем значение вверх
-        };
+export const Search = ({ onSearch }: ISearchProps) => {
+    const [query, setQuery] = useState('');
 
-        return (
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setQuery(value);
+        onSearch(value);
+    };
+    return (
         <div className={style.search_container}>
             <input className={style.search_input}
                    type={"text"}
                    placeholder="Поиск"
                    value={query}
-                   onChange={handleChange}
+                   onChange={handleInputChange}
             />
             <button className={style.button_input}>
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20"

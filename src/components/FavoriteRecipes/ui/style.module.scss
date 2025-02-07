@@ -1,10 +1,19 @@
 .container_favorite {
-  max-width: 1440px;
   text-align: center;
+  max-width: 1440px;
   margin-top:40px ;
 }
 
-.catalog_favorite_wrapper{
+.catalog_favorite {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  max-width: 1440px;
+  justify-content: center;
+  margin-top:40px ;
+}
+
+.catalog_favorite_wrapper {
   display: flex;
   flex-direction: column;
   width: 320px;
@@ -13,10 +22,23 @@
   border-radius: 4px;
   font-size: 16px;
   text-align: center;
+  position: relative;
 }
 
 .img_desert {
-  height: 70%;
+  height: 60%;
   border-radius: 4px;
 }
 
+.button_favorite {
+  border: 1px solid #8a8a8a;
+  border-radius: 4px;
+  height: 40px;
+  width: 300px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  bottom: 10px;
+  position: absolute;
+}

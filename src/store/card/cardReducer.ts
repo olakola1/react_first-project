@@ -7,7 +7,7 @@ export interface DesertData {
     name: string;
     ingredients: string;
     time: string;
-    image: string;
+    image?: string;
 }
 
 export interface SoupData  {
@@ -32,12 +32,14 @@ export interface CardState {
     hotter: HotterData[];
     loading: boolean;
     error: string | null;
+    allDishes: (DesertData | SoupData | HotterData)[];
 }
 
 export const initialState: CardState = {
     data: [],
     soup: [],
     hotter: [],
+    allDishes: [],
     loading: false,
     error: null,
 };
@@ -73,16 +75,14 @@ const cardSlice = createSlice({
             .addCase(fetchHotterData.pending, (state) => {
                 state.loading = true;
             })
-
             .addCase(fetchHotterData.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.hotter = action.payload;
+                state.loading = false;
+                state.hotter = action.payload;
             })
             .addCase(fetchHotterData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch';
-        });
+            });
     },
 });
-
 export const cardReducer = cardSlice.reducer;

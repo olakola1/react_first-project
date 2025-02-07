@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
 export interface Recipe {
     id: number;
     name: string;
@@ -22,7 +21,7 @@ const recipeSlice = createSlice({
             localStorage.setItem('recipes', JSON.stringify(state));
         },
         deleteRecipe(state, action: PayloadAction<number>) {
-            const newState = state.filter((_, index) => index !== action.payload);
+            const newState = state.filter(recipe => recipe.id !== action.payload);
             localStorage.setItem('recipes', JSON.stringify(newState));
             return newState;
         },

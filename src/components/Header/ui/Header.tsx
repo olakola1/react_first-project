@@ -1,27 +1,41 @@
 import React, {useState} from 'react';
 import style from './style.module.scss';
-import logo from '../../../img/Logo.svg';
-import icon from '../../../img/telegram.png';
+import logo from '../../../../public/img/Logo.svg';
+import icon from '../../../../public/img/telegram.png';
 import {Search} from "../../Search";
 import {Link} from "react-router-dom";
 import {Recipe} from "../../../store/catalog/recipeReduser.ts";
 import {RecipeModal} from "../../Modal";
 import {useDispatch, useSelector} from 'react-redux';
 import {addRecipe} from "../../../store/catalog/recipeReduser.ts";
-import {RootState} from "../../../store/store";
+import { Routes as Paths  } from '../../../config/routes'
+import {getFavoriteRecipes} from "../../../store/favorite/selectorFavorites.ts";
+import {getRecipe} from "../../../store/catalog/selectorCatalog.ts";
+
+//import { CardMaps} from "../../Card/maps";
 
 export const Header = () => {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    //const [searchQuery, setSearchQuery] = useState('');
 
-    const recipe = useSelector ((state:RootState) => state.recipe);
 
-    const favoriteRecipes = useSelector ((state:RootState) => state.favoriteRecipes);
+    const recipe = useSelector (getRecipe);
+
+    const favoriteRecipes = useSelector (getFavoriteRecipes);
 
     const handleSaveRecipe = (recipe: Recipe) => {
         dispatch(addRecipe(recipe));
         setIsModalOpen(false);
     };
+    //const handleSearch = (query: string) => {
+    //    setSearchQuery(query);
+    //};
+
+    // Фильтрация данных
+    //const filteredRecipes = recipe.filter((item) =>
+     //   item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    //);
 
     return (
         <div className={style.container}>
@@ -32,20 +46,20 @@ export const Header = () => {
                 </Link>
             <nav>
                 <div className={style.nav}>
-                    <Search/>
-                    <Link to="/catalog"
+
+                    <Link to={Paths.catalog}
                     className={style.navbar}> Моя книга рецептов {recipe.length > 0 && `(${recipe.length})`}
                         </Link>
-                    <Link to="/favorite"
+                    <Link to={Paths.favorite}
                           className={style.navbar}> Любимые рецепты {favoriteRecipes.length > 0 && `(${favoriteRecipes.length})`}
                     </Link>
                     <button className={style.button_new_recipe}
                             onClick={() => setIsModalOpen(true)}>
                         Добавить рецепт
                     </button>
-                    <a href="https://t.me/a_useful_recipe_bot">
+                    <Link to="https://t.me/a_useful_recipe_bot" target="_blank">
                         <img src={icon} alt="Телеграм" className={style.icon} />
-                    </a>
+                    </Link>
                 </div>
             </nav>
             <RecipeModal
