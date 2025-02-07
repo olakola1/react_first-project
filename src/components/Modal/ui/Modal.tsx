@@ -24,7 +24,6 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
         } else {
             document.body.style.overflow = 'unset';
         }
-
         return () => {
             document.body.style.overflow = 'unset';
         };

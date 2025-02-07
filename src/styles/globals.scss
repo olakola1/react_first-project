@@ -2,7 +2,7 @@
 @forward 'fonts';
 @forward 'typography';
 @forward 'media';
-@import "../../node_modules/normalize.css/normalize.css";
+@use "../../node_modules/normalize.css/normalize";
 
 html {
   -webkit-box-sizing: border-box;

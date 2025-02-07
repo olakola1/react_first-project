@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import style from './style.module.scss';
-import logo from '../../../../public/img/Logo.svg';
-import icon from '../../../../public/img/telegram.png';
 import { Link } from "react-router-dom";
 import { Recipe } from "../../../store/catalog/recipeReduser.ts";
 import { RecipeModal } from "../../Modal";
@@ -28,7 +26,7 @@ export const Header = () => {
         <div className={style.container}>
             <Link to="/home">
             <div className="logo">
-                <img src={logo} alt="Логотип" />
+                <img src={"/img/Logo.svg"} alt="Логотип" />
             </div>
                 </Link>
             <nav>
@@ -44,7 +42,7 @@ export const Header = () => {
                         Добавить рецепт
                     </button>
                     <Link to="https://t.me/a_useful_recipe_bot" target="_blank">
-                        <img src={icon} alt="Телеграм" className={style.icon} />
+                        <img src={"img/telegram.png"} alt="Телеграм" className={style.icon} />
                     </Link>
                 </div>
             </nav>
