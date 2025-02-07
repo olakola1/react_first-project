@@ -5,7 +5,6 @@ import { FavoritePage } from "../../../pages";
 import { Header } from '../../Header';
 import { Routes as Paths  } from '../../../config/routes'
 
-
 export const Router = () => {
     return (
         <BrowserRouter>

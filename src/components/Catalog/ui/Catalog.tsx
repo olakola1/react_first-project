@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Recipe } from '../../../store/catalog/recipeReduser.ts';
 import { deleteRecipe} from "../../../store/catalog/recipeReduser.ts";
-import {getRecipe} from "../../../store/catalog/selectorCatalog.ts";
+import { getRecipe } from "../../../store/catalog/selectorCatalog.ts";
 
 export const Catalog = () => {
     const recipes = useSelector(getRecipe);

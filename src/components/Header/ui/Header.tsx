@@ -1,24 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import style from './style.module.scss';
 import logo from '../../../../public/img/Logo.svg';
 import icon from '../../../../public/img/telegram.png';
-import {Search} from "../../Search";
-import {Link} from "react-router-dom";
-import {Recipe} from "../../../store/catalog/recipeReduser.ts";
-import {RecipeModal} from "../../Modal";
-import {useDispatch, useSelector} from 'react-redux';
-import {addRecipe} from "../../../store/catalog/recipeReduser.ts";
+import { Link } from "react-router-dom";
+import { Recipe } from "../../../store/catalog/recipeReduser.ts";
+import { RecipeModal } from "../../Modal";
+import { useDispatch, useSelector } from 'react-redux';
+import { addRecipe } from "../../../store/catalog/recipeReduser.ts";
 import { Routes as Paths  } from '../../../config/routes'
-import {getFavoriteRecipes} from "../../../store/favorite/selectorFavorites.ts";
-import {getRecipe} from "../../../store/catalog/selectorCatalog.ts";
-
-//import { CardMaps} from "../../Card/maps";
+import { getFavoriteRecipes } from "../../../store/favorite/selectorFavorites.ts";
+import { getRecipe } from "../../../store/catalog/selectorCatalog.ts";
 
 export const Header = () => {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    //const [searchQuery, setSearchQuery] = useState('');
-
 
     const recipe = useSelector (getRecipe);
 
@@ -28,14 +23,6 @@ export const Header = () => {
         dispatch(addRecipe(recipe));
         setIsModalOpen(false);
     };
-    //const handleSearch = (query: string) => {
-    //    setSearchQuery(query);
-    //};
-
-    // Фильтрация данных
-    //const filteredRecipes = recipe.filter((item) =>
-     //   item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    //);
 
     return (
         <div className={style.container}>
@@ -46,7 +33,6 @@ export const Header = () => {
                 </Link>
             <nav>
                 <div className={style.nav}>
-
                     <Link to={Paths.catalog}
                     className={style.navbar}> Моя книга рецептов {recipe.length > 0 && `(${recipe.length})`}
                         </Link>

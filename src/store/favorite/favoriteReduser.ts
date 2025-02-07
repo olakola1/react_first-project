@@ -4,7 +4,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type FavoriteRecipe = Recipe | DesertData;
 
-// Функция для загрузки избранных рецептов из localStorage
 const loadFavoritesFromLocalStorage = (): FavoriteRecipe[] => {
     const favorites = localStorage.getItem('favoriteRecipes');
     return favorites ? JSON.parse(favorites) : [];
@@ -22,7 +21,7 @@ const favoriteRecipesSlice = createSlice({
             );
             if (!isAlreadyInFavorites) {
                 state.push(action.payload);
-                // Сохраняем обновленное состояние в localStorage
+
                 localStorage.setItem('favoriteRecipes', JSON.stringify(state));
             } else {
                 alert('Рецепт уже добавлен!');

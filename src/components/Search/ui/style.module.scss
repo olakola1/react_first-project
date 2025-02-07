@@ -4,7 +4,7 @@
     gap: 10px;
 }
 
-.search_input {
+.search_wrapper {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -12,7 +12,7 @@
     flex-grow: 1;
 }
 
-.button_input {
+.button_search {
     background: none;
     border: none;
     cursor: pointer;
@@ -22,12 +22,12 @@
     justify-content: center;
 }
 
-.button_input svg {
+.button_search svg {
     width: 20px;
     height: 20px;
     fill: #333;
 }
 
-.button_input:hover svg {
+.button_search:hover svg {
     fill: #089e1e;
 }

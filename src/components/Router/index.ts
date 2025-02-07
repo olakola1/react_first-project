@@ -1,1 +1,1 @@
-export {Router} from './ui/Router.tsx'
+export { Router } from './ui/Router.tsx'

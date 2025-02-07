@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {fetchDesertData, fetchSoupData, fetchHotterData} from "./thunk.ts";
 
-
 export interface DesertData {
     id: number;
     name: string;

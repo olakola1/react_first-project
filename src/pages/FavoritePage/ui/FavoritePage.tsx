@@ -1,6 +1,5 @@
 import React from "react";
-import {FavoriteRecipes} from "../../../components/FavoriteRecipes";
-
+import { FavoriteRecipes } from "../../../components/FavoriteRecipes";
 
 export const FavoritePage = () => {
 

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import style from './style.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { addToFavorites } from "../../../../store/favorite/favoriteReduser.ts";
@@ -5,6 +6,7 @@ import { Recipe } from "../../../../store/catalog/recipeReduser.ts";
 import { DesertData, HotterData, SoupData } from "../../../../store/card/cardReducer.ts";
 import { getRecipe } from "../../../../store/catalog/selectorCatalog.ts";
 import { getDesertData, getHotterData, getSoupData } from "../../../../store/card/selectorCard.ts";
+import { Search } from "../../../Search";
 
 export interface IDishes {
     id: number;
@@ -19,21 +21,31 @@ interface CardMapsProps {
 }
 
 export const CardMaps = ({ allDishes }: CardMapsProps) => {
-    const recipes = useSelector (getRecipe);
-    const desertData = useSelector (getDesertData);
-    const soupData = useSelector (getSoupData);
-    const hotterData = useSelector (getHotterData);
+    const recipes = useSelector(getRecipe);
+    const desertData = useSelector(getDesertData);
+    const soupData = useSelector(getSoupData);
+    const hotterData = useSelector(getHotterData);
     const dispatch = useDispatch();
+
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleAddToFavorites = (recipe: Recipe | DesertData | SoupData | HotterData) => {
         dispatch(addToFavorites(recipe));
     };
 
-    const combinedDishes = [...desertData, ...soupData, ...hotterData, ...recipes, ...allDishes ||[]];
+    const combinedDishes = [...desertData, ...soupData, ...hotterData, ...recipes, ...(allDishes || [])];
+
+    const filteredDishes = combinedDishes.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <>
-            {combinedDishes.map((item: IDishes) => (
+            <div className={style.search_container}>
+                <Search onSearch={(query) => setSearchQuery(query)} />
+            </div>
+
+            {filteredDishes.map((item: IDishes) => (
                 <div key={item.name} className={style.cardWrapper}>
                     {item.image && <img className={style.img_desert} src={item.image} alt={item.name} />}
                     <h3>{item.name}</h3>

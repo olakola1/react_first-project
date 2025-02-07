@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import style from './style.module.scss';
 import { getFavoriteRecipes } from "../../../store/favorite/selectorFavorites.ts";
 import { removeFromFavorites } from "../../../store/favorite/favoriteReduser.ts";
-
 
 export interface FavoriteRecipe {
     id: number;
@@ -20,7 +19,6 @@ export const FavoriteRecipes = () => {
     const handleRemoveRecipe = (id: number) => {
         dispatch(removeFromFavorites(id));
     };
-
 
     return (
         <div className={style.container_favorite}>

@@ -1,1 +1,1 @@
-export {CardMaps} from './ui/CardMaps.tsx'
+export { CardMaps } from './ui/CardMaps.tsx'

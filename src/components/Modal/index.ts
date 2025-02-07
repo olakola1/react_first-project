@@ -1,1 +1,1 @@
-export {RecipeModal} from './ui/Modal.tsx'
+export { RecipeModal } from './ui/Modal.tsx'
