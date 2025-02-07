@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HomePage } from '../../../pages';
 import { CatalogPage } from "../../../pages";
 import { FavoritePage } from "../../../pages";
@@ -7,7 +7,7 @@ import { Routes as Paths  } from '../../../config/routes'
 
 export const Router = () => {
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Header/>
             <Routes>
                 <Route path="/" element={<Navigate to="/home" />} />
@@ -15,6 +15,6 @@ export const Router = () => {
                 <Route path={Paths.catalog} element={<CatalogPage />} />
                 <Route path={Paths.favorite} element={<FavoritePage />} />
             </Routes>
-        </HashRouter>
+        </BrowserRouter>
     );
 };
