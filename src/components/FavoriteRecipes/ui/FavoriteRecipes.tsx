@@ -15,7 +15,6 @@ export interface FavoriteRecipe {
 export const FavoriteRecipes = () => {
     const favoriteRecipes = useSelector(getFavoriteRecipes);
     const dispatch = useDispatch();
-
     const handleRemoveRecipe = (id: number) => {
         dispatch(removeFromFavorites(id));
     };

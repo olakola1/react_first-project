@@ -40,7 +40,6 @@ export const CardMaps = ({ allDishes }: CardMapsProps) => {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-
     return (
         <>
             <div>

@@ -9,6 +9,8 @@ export interface ModalIProps {
     onSave: (recipe: Recipe) => void;
 }
 
+type RecipeCategory = 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'healthy';
+
 export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
     const [newRecipe, setNewRecipe] = useState<Recipe>({
         id: 0,
@@ -16,7 +18,16 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
         ingredients: '',
         time: '',
         image: '',
+        category: 'breakfast',
     });
+
+    const categoryOptions: { value: RecipeCategory; label: string }[] = [
+        { value: 'breakfast', label: 'Завтрак' },
+        { value: 'lunch', label: 'Обед' },
+        { value: 'dinner', label: 'Ужин' },
+        { value: 'dessert', label: 'Десерт' },
+        { value: 'healthy', label: 'Здоровое питание' },
+    ];
 
     useEffect(() => {
         if (isOpen) {
@@ -29,7 +40,7 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
         };
     }, [isOpen]);
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setNewRecipe({
             ...newRecipe,
@@ -58,6 +69,7 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
             ...newRecipe,
             id: generateUniqueId(),
             image: newRecipe.image,
+            category: newRecipe.category || 'breakfast',
         };
         onSave(recipeToSave);
         onClose();
@@ -67,6 +79,7 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
             ingredients: '',
             time: '',
             image: '',
+            category: 'breakfast',
         });
     };
 
@@ -84,6 +97,23 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
                         value={newRecipe.name}
                         onChange={handleInputChange} />
                 </label>
+
+                <label className={style.modal_label}>
+                    Категория:
+                    <select
+                        name="category"
+                        value={newRecipe.category}
+                        onChange={handleInputChange}
+                        className={style.modal_select}
+                    >
+                        {categoryOptions.map(option => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
                 <label className={style.modal_label}>
                     Ингредиенты:
                     <textarea
@@ -91,6 +121,7 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
                         value={newRecipe.ingredients}
                         onChange={handleInputChange} />
                 </label>
+
                 <label className={style.modal_label}>
                     Время приготовления:
                     <input
@@ -99,6 +130,7 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
                         value={newRecipe.time}
                         onChange={handleInputChange} />
                 </label>
+
                 <label className={style.modal_label}>
                     Фото:
                     <input
@@ -106,8 +138,11 @@ export const RecipeModal = ({ isOpen, onClose, onSave }: ModalIProps) => {
                         accept="image/*"
                         onChange={handlePhotoChange} />
                 </label>
-                <button className={style.modal_button} onClick={handleSave}>Сохранить</button>
-                <button className={style.modal_button} onClick={onClose}>Отмена</button>
+
+                <div className={style.modal_buttons}>
+                    <button className={style.modal_button} onClick={handleSave}>Сохранить</button>
+                    <button className={style.modal_button} onClick={onClose}>Отмена</button>
+                </div>
             </div>
         </div>
     );

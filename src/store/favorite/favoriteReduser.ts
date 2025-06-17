@@ -21,7 +21,6 @@ const favoriteRecipesSlice = createSlice({
             );
             if (!isAlreadyInFavorites) {
                 state.push(action.payload);
-
                 localStorage.setItem('favoriteRecipes', JSON.stringify(state));
             } else {
                 alert('Рецепт уже добавлен!');
@@ -29,7 +28,6 @@ const favoriteRecipesSlice = createSlice({
         },
         removeFromFavorites(state, action: PayloadAction<number>) {
             const newState = state.filter((recipe) => recipe.id !== action.payload);
-
             localStorage.setItem('favoriteRecipes', JSON.stringify(newState));
             return newState;
         },

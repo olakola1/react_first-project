@@ -6,6 +6,7 @@ export interface Recipe {
     ingredients: string;
     time: string;
     image: string;
+    category: 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'healthy';
 }
 
 export const initialState:
