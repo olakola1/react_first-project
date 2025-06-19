@@ -1,32 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import style from './style.module.scss';
 import { Link } from "react-router-dom";
 import { RecipeModal } from "../../Modal";
-import { useAppDispatch, useAppSelector } from '../../../store/store.ts';
-import { addRecipeToServer, fetchRecipes } from "../../../store/catalog/thunk.ts";
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { addRecipeToServer } from "../../../store/catalog/thunk";
 import { Routes as Paths } from '../../../config/routes';
-import { getFavoriteRecipes } from "../../../store/favorite/selectorFavorites.ts";
-import { getRecipe, getRecipeLoading, getRecipeError } from "../../../store/catalog/selectorCatalog.ts";
-import { RecipeToCreate } from '../../../store/types.ts';
+import { getRecipe } from "../../../store/catalog/selectorRecipe";
+import { RecipeToCreate } from '../../../store/types';
 
 export const Header = () => {
     const dispatch = useAppDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        dispatch(fetchRecipes());
-    }, [dispatch]);
-
     const recipes = useAppSelector(getRecipe);
-    const isLoading = useAppSelector(getRecipeLoading);
-    const error = useAppSelector(getRecipeError);
-    const favoriteRecipes = useAppSelector(getFavoriteRecipes);
+
+    const favoriteRecipes = recipes.filter(recipe => recipe.isFavorite);
 
     const handleSaveRecipe = async (recipe: RecipeToCreate) => {
         try {
             await dispatch(addRecipeToServer(recipe)).unwrap();
             setIsModalOpen(false);
-            dispatch(fetchRecipes());
         } catch (error) {
             console.error('Ошибка при сохранении:', error);
         }
@@ -36,7 +29,7 @@ export const Header = () => {
         <div className={style.container}>
             <Link to="/home">
                 <div className="logo">
-                    <img src={"/img/Logo.svg"} alt="Логотип" />
+                    <img src="/img/Logo.svg" alt="Логотип" />
                 </div>
             </Link>
             <nav>
@@ -53,8 +46,8 @@ export const Header = () => {
                     >
                         Добавить рецепт
                     </button>
-                    <Link to="https://t.me/a_useful_recipe_bot" target="_blank">
-                        <img src={"img/telegram.png"} alt="Телеграм" className={style.icon} />
+                    <Link to="https://t.me/a_useful_recipe_bot" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/telegram.png" alt="Телеграм" className={style.icon} />
                     </Link>
                 </div>
             </nav>

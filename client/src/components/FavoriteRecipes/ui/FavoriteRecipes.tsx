@@ -1,28 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../../store/store'; // Импортируем типизированный dispatch
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { getRecipe } from "../../../store/catalog/selectorRecipe";
 import style from './style.module.scss';
-import { getFavoriteRecipes, getFavoritesLoading } from "../../../store/favorite/selectorFavorites";
-import { fetchFavorites, removeFavorite } from "../../../store/favorite/thunk";
+import { toggleFavoriteRecipe } from "../../../store/catalog/thunk";
+import { Recipe } from '../../../store/types';
 
 export const FavoriteRecipes = () => {
-    // Используем типизированный dispatch из store
     const dispatch = useAppDispatch();
-    const favoriteRecipes = useSelector(getFavoriteRecipes);
-    const isLoading = useSelector(getFavoritesLoading);
+    const allRecipes = useAppSelector(getRecipe);
+    const favoriteRecipes = allRecipes.filter(recipe => recipe.isFavorite);
 
-    useEffect(() => {
-        // Тип dispatch теперь знает о наших асинхронных действиях
-        dispatch(fetchFavorites());
-    }, [dispatch]);
-
-    const handleRemoveRecipe = (id: number) => {
-        dispatch(removeFavorite(id));
+    const handleRemoveFavorite = (recipe: Recipe) => {
+        dispatch(toggleFavoriteRecipe({
+            id: recipe.id,
+            isFavorite: false
+        }));
     };
-
-    if (isLoading) {
-        return <div className={style.loading}>Загрузка...</div>;
-    }
 
     return (
         <div className={style.container_favorite}>
@@ -34,27 +27,26 @@ export const FavoriteRecipes = () => {
                 </div>
             ) : (
                 <div className={style.catalog_favorite}>
-                    {favoriteRecipes.map((item) => (
-                        <div key={item.id} className={style.catalog_favorite_wrapper}>
-                            {item.image && (
+                    {favoriteRecipes.map((recipe) => (
+                        <div key={recipe.id} className={style.catalog_favorite_wrapper}>
+                            {recipe.image && (
                                 <img
-                                    src={item.image}
-                                    alt={item.title}
+                                    src={recipe.image}
+                                    alt={recipe.title}
                                     className={style.img_desert}
                                     onError={(e) => {
                                         (e.target as HTMLImageElement).style.display = 'none';
                                     }}
                                 />
                             )}
-                            <h3>{item.title}</h3>
-                            <p>{item.ingredients}</p>
-                            <p>Время приготовления: {item.time} мин</p>
+                            <h3>{recipe.title}</h3>
+                            <p>{recipe.ingredients}</p>
+                            <p>Время приготовления: {recipe.time} мин</p>
                             <button
                                 className={style.button_favorite}
-                                onClick={() => handleRemoveRecipe(item.id)}
-                                disabled={isLoading}
+                                onClick={() => handleRemoveFavorite(recipe)}
                             >
-                                {isLoading ? 'Удаление...' : 'Удалить из избранного'}
+                                Удалить из избранного
                             </button>
                         </div>
                     ))}

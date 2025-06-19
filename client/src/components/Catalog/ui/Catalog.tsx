@@ -2,7 +2,7 @@ import React from 'react';
 import style from './style.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { deleteRecipeFromServer} from "../../../store/catalog/thunk.ts";
-import { getRecipe, getRecipeLoading, getRecipeError } from "../../../store/catalog/selectorCatalog.ts";
+import { getRecipe, getRecipeLoading, getRecipeError } from "../../../store/catalog/selectorRecipe.ts";
 
 
 export const Catalog = () => {

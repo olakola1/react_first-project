@@ -1,30 +1,27 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDesertData, fetchSoupData, fetchHotterData } from "../../../store/card/thunk.ts";
-import { getCard } from "../../../store/card/selectorCard.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { fetchRecipes } from "../../../store/catalog/thunk.ts";
+import { getRecipe, getRecipeLoading, getRecipeError } from "../../../store/catalog/selectorRecipe.ts";
 import { CardContainer } from "../../../components/Card";
 import { CardMaps } from "../../../components/Card/maps";
 
 export const HomePage = () => {
-    const dispatch = useDispatch();
-    const { allDishes } = useSelector(getCard);
+    const dispatch = useAppDispatch();
+    const recipes = useAppSelector(getRecipe);
+    const loading = useAppSelector(getRecipeLoading);
+    const error = useAppSelector(getRecipeError);
 
     useEffect(() => {
-        dispatch(fetchDesertData() as any)
+        dispatch(fetchRecipes());
     }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchSoupData() as any)
-    }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(fetchHotterData() as any)
-    }, [dispatch]);
+    if (loading) return <div>Загрузка...</div>;
+    if (error) return <div>Ошибка: {error}</div>;
 
     return (
         <div>
             <CardContainer>
-                <CardMaps allDishes={allDishes}/>
+                <CardMaps recipes={recipes} />
             </CardContainer>
         </div>
     );

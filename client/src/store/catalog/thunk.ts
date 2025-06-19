@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { RecipeToCreate } from '../types.ts'; // Убедитесь в правильности пути
+import type { Recipe, RecipeToCreate } from '../types.ts';
 
 export const fetchRecipes = createAsyncThunk(
-    'recipes/fetch',
+    'recipes/fetchAll',
     async (_, { rejectWithValue }) => {
         try {
             const response = await fetch('/api/recipes');
             if (!response.ok) throw new Error('Server error');
-            return await response.json();
+            return await response.json() as Recipe[];
         } catch (err) {
             return rejectWithValue(err instanceof Error ? err.message : 'Unknown error');
         }
@@ -24,7 +24,7 @@ export const addRecipeToServer = createAsyncThunk(
                 body: JSON.stringify(recipe)
             });
             if (!response.ok) throw new Error('Server error');
-            return await response.json();
+            return await response.json() as Recipe;
         } catch (err) {
             return rejectWithValue(err instanceof Error ? err.message : 'Unknown error');
         }
@@ -40,6 +40,23 @@ export const deleteRecipeFromServer = createAsyncThunk(
             });
             if (!response.ok) throw new Error('Server error');
             return id;
+        } catch (err) {
+            return rejectWithValue(err instanceof Error ? err.message : 'Unknown error');
+        }
+    }
+);
+
+export const toggleFavoriteRecipe = createAsyncThunk(
+    'recipes/toggleFavorite',
+    async ({ id, isFavorite }: { id: number, isFavorite: boolean }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`/api/recipes/${id}/favorite`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isFavorite })
+            });
+            if (!response.ok) throw new Error('Server error');
+            return await response.json() as Recipe;
         } catch (err) {
             return rejectWithValue(err instanceof Error ? err.message : 'Unknown error');
         }

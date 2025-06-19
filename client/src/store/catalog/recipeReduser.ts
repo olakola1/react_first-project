@@ -1,10 +1,13 @@
-// store/catalog/reduser.ts
 import { createSlice } from '@reduxjs/toolkit';
 import type { Recipe } from '../types.ts';
-import { addRecipeToServer, deleteRecipeFromServer, fetchRecipes } from './thunk';
+import {
+    addRecipeToServer,
+    deleteRecipeFromServer,
+    fetchRecipes,
+    toggleFavoriteRecipe
+} from './thunk.ts';
 
-
-export interface RecipeState {
+interface RecipeState {
     items: Recipe[];
     loading: boolean;
     error: string | null;
@@ -22,31 +25,33 @@ const recipeSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+
             .addCase(fetchRecipes.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(fetchRecipes.fulfilled, (state, action) => {
                 state.loading = false;
-                state.items = action.payload; // Получаем свежие данные с сервера
+                state.items = action.payload;
             })
             .addCase(fetchRecipes.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })
+
             .addCase(addRecipeToServer.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(addRecipeToServer.fulfilled, (state, action) => {
                 state.loading = false;
-                state.items.push(action.payload);
-                localStorage.setItem('recipes', JSON.stringify(state.items));
+                state.items.unshift(action.payload); // Добавляем в начало
             })
             .addCase(addRecipeToServer.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })
+
             .addCase(deleteRecipeFromServer.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -54,14 +59,28 @@ const recipeSlice = createSlice({
             .addCase(deleteRecipeFromServer.fulfilled, (state, action) => {
                 state.loading = false;
                 state.items = state.items.filter(recipe => recipe.id !== action.payload);
-                localStorage.setItem('recipes', JSON.stringify(state.items));
             })
             .addCase(deleteRecipeFromServer.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+
+            .addCase(toggleFavoriteRecipe.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(toggleFavoriteRecipe.fulfilled, (state, action) => {
+                state.loading = false;
+                const index = state.items.findIndex(r => r.id === action.payload.id);
+                if (index !== -1) {
+                    state.items[index] = action.payload;
+                }
+            })
+            .addCase(toggleFavoriteRecipe.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
     }
 });
 
-export const { actions: recipeActions, reducer: recipeReducer } = recipeSlice;
-export default recipeReducer;
+export default recipeSlice.reducer;
