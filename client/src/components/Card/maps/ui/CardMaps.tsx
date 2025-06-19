@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './style.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { addToFavorites } from "../../../../store/favorite/favoriteReduser.ts";
+import { fetchFavorites, addFavorite, removeFavorite } from "../../../../store/favorite/thunk.ts";
 import { Recipe } from "../../../../store/types.ts";
 import { DesertData, HotterData, SoupData } from "../../../../store/card/cardReducer.ts";
 import { getRecipe } from "../../../../store/catalog/selectorCatalog.ts";

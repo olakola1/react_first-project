@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { Recipe, RecipeToCreate } from '../types.ts'; // Убедитесь в правильности пути
+import type { RecipeToCreate } from '../types.ts'; // Убедитесь в правильности пути
 
 export const fetchRecipes = createAsyncThunk(
     'recipes/fetch',

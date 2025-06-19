@@ -21,6 +21,7 @@ interface RecipeAttributes {
     ingredients: string;
     time: number;
     image?: string | null;
+    isFavorite?: boolean;
 }
 
 interface RecipeCreationAttributes extends Optional<RecipeAttributes, 'id' | 'image'> {}
@@ -31,6 +32,7 @@ class Recipe extends Model<RecipeAttributes, RecipeCreationAttributes> implement
     public ingredients!: string;
     public time!: number;
     public image!: string | null;
+    public isFavorite?: boolean;
 
     public static initialize(sequelize: Sequelize): void {
         this.init({
@@ -54,6 +56,11 @@ class Recipe extends Model<RecipeAttributes, RecipeCreationAttributes> implement
             image: {
                 type: DataTypes.STRING,
                 allowNull: true
+            },
+            isFavorite: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
             }
         }, {
             sequelize: sequelize,

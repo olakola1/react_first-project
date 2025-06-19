@@ -7,7 +7,7 @@ import { addRecipeToServer, fetchRecipes } from "../../../store/catalog/thunk.ts
 import { Routes as Paths } from '../../../config/routes';
 import { getFavoriteRecipes } from "../../../store/favorite/selectorFavorites.ts";
 import { getRecipe, getRecipeLoading, getRecipeError } from "../../../store/catalog/selectorCatalog.ts";
-import { Recipe, RecipeToCreate } from '../../../store/types.ts'; // Убедитесь, что путь правильный
+import { RecipeToCreate } from '../../../store/types.ts';
 
 export const Header = () => {
     const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ export const Header = () => {
         try {
             await dispatch(addRecipeToServer(recipe)).unwrap();
             setIsModalOpen(false);
-            dispatch(fetchRecipes()); // Обновляем список после добавления
+            dispatch(fetchRecipes());
         } catch (error) {
             console.error('Ошибка при сохранении:', error);
         }

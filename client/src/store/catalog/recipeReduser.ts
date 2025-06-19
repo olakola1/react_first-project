@@ -1,7 +1,7 @@
-// store/catalog/recipeReduser.ts
+// store/catalog/reduser.ts
 import { createSlice } from '@reduxjs/toolkit';
 import type { Recipe } from '../types.ts';
-import { addRecipeToServer, deleteRecipeFromServer } from './thunk';
+import { addRecipeToServer, deleteRecipeFromServer, fetchRecipes } from './thunk';
 
 
 export interface RecipeState {
@@ -11,7 +11,7 @@ export interface RecipeState {
 }
 
 const initialState: RecipeState = {
-    items: JSON.parse(localStorage.getItem('recipes') || '[]'),
+    items: [],
     loading: false,
     error: null
 };
@@ -22,6 +22,18 @@ const recipeSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(fetchRecipes.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchRecipes.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload; // Получаем свежие данные с сервера
+            })
+            .addCase(fetchRecipes.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
             .addCase(addRecipeToServer.pending, (state) => {
                 state.loading = true;
                 state.error = null;

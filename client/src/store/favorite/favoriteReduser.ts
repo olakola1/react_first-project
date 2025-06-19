@@ -1,40 +1,74 @@
-import { Recipe } from "../types.ts";
-import { DesertData } from "../card/cardReducer.ts";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Recipe } from "../types";
+import { fetchFavorites, addFavorite, removeFavorite } from "./thunk";
 
-type FavoriteRecipe = Recipe | DesertData;
+interface FavoriteState {
+    items: Recipe[];
+    loading: boolean;
+    error: string | null;
+}
 
-const loadFavoritesFromLocalStorage = (): FavoriteRecipe[] => {
-    const favorites = localStorage.getItem('favoriteRecipes');
-    return favorites ? JSON.parse(favorites) : [];
+const initialState: FavoriteState = {
+    items: [],
+    loading: false,
+    error: null,
 };
 
-const initialState: FavoriteRecipe[] = loadFavoritesFromLocalStorage();
-
 const favoriteRecipesSlice = createSlice({
-    name: 'favoriteRecipes',
+    name: "favoriteRecipes",
     initialState,
-    reducers: {
-        addToFavorites(state, action: PayloadAction<FavoriteRecipe>) {
-            const isAlreadyInFavorites = state.some(
-                (recipe) => recipe.id === action.payload.id
-            );
-            if (!isAlreadyInFavorites) {
-                state.push(action.payload);
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            // Загрузка избранного
+            .addCase(fetchFavorites.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchFavorites.fulfilled, (state, action: PayloadAction<Recipe[]>) => {
+                state.loading = false;
+                state.items = action.payload;
+            })
+            .addCase(fetchFavorites.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
 
-                localStorage.setItem('favoriteRecipes', JSON.stringify(state));
-            } else {
-                alert('Рецепт уже добавлен!');
-            }
-        },
-        removeFromFavorites(state, action: PayloadAction<number>) {
-            const newState = state.filter((recipe) => recipe.id !== action.payload);
+            // Добавление в избранное
+            .addCase(addFavorite.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addFavorite.fulfilled, (state, action: PayloadAction<Recipe>) => {
+                state.loading = false;
+                if (!state.items.some(item => item.id === action.payload.id)) {
+                    state.items.push(action.payload);
+                }
+            })
+            .addCase(addFavorite.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(removeFavorite.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(removeFavorite.fulfilled, (state, action: PayloadAction<number>) => {
+                state.loading = false;
+                state.items = state.items.filter(item => item.id !== action.payload);
 
-            localStorage.setItem('favoriteRecipes', JSON.stringify(newState));
-            return newState;
-        },
+                // Дополнительно обновим статус в основном списке рецептов
+                state.items.forEach(item => {
+                    if (item.id === action.payload) {
+                        item.isFavorite = false;
+                    }
+                });
+            })
+            .addCase(removeFavorite.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
     },
 });
 
-export const { addToFavorites, removeFromFavorites } = favoriteRecipesSlice.actions;
 export default favoriteRecipesSlice.reducer;
