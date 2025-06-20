@@ -8,11 +8,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "types": ["node", "express", "cors", "pg"],
+    "types": ["node"],
     "typeRoots": [
-      "./node_modules/@types",
-      "./src/types",
-      ]
+      "./node_modules/@types"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
