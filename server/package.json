@@ -1,4 +1,5 @@
 {
+  "main": "dist/app.js",
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
