@@ -4,8 +4,7 @@ services:
     runtime: node
     buildCommand: |
       cd server &&
-      npm install &&
-      npm install --only=dev && 
+      npm install --include=dev &&
       npm run build
     startCommand: |
       cd server &&

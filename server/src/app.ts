@@ -6,6 +6,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+interface NodeError extends Error {
+    code?: string;
+}
+
 const app = express();
 
 app.get('*', (req: Request, res: Response) => {
@@ -39,6 +43,12 @@ app.use('/api', router);
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+
+}).on('error', (err: NodeError) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+        process.exit(1);
+    }
 });
 
 if (process.env.NODE_ENV === 'production') {
