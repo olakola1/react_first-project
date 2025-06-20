@@ -30,7 +30,7 @@ app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
 app.get('/api/recipes', noCacheMiddleware);
 // основной роутер
 app.use('/api', recipe_1.default);
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });

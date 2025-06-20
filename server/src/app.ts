@@ -32,7 +32,7 @@ app.get('/api/recipes', noCacheMiddleware);
 // основной роутер
 app.use('/api', router);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });

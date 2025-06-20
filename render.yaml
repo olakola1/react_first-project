@@ -2,8 +2,14 @@ services:
   - type: web
     name: recipes-backend
     runtime: node
-    buildCommand: cd server && npm install && npm run build
-    startCommand: cd server && node dist/server.js
+    buildCommand: |
+      cd server &&
+      npm install &&
+      npm install --only=dev && 
+      npm run build
+    startCommand: |
+      cd server &&
+      node dist/app.js
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -11,5 +17,5 @@ services:
           property: connectionString
       - key: NODE_ENV
         value: production
-      - key: PORT
+      - key: PROD_PORT
         value: 10000
