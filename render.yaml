@@ -4,8 +4,9 @@ services:
     runtime: node
     buildCommand: |
       cd server &&
-      npm install --include=dev &&
-      npm run build
+      npm install && # Установка всех зависимостей
+      npm run build && # Сборка TypeScript
+      npm prune --production # Удаление dev-зависимостей после сборки
     startCommand: |
       cd server &&
       node dist/app.js

@@ -10,7 +10,7 @@ const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.get('*', (req, res) => {
+app.get('/api', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../frontend/dist', 'index.html'));
 });
 // Middleware для отключения кеширования API
