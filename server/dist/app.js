@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const recipe_1 = __importDefault(require("./routes/recipe"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Middleware для отключения кеширования API
 const noCacheMiddleware = (req, res, next) => {
@@ -28,9 +30,9 @@ app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
 app.get('/api/recipes', noCacheMiddleware);
 // основной роутер
 app.use('/api', recipe_1.default);
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path_1.default.resolve();

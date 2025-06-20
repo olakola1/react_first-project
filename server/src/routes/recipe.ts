@@ -7,7 +7,6 @@ const router = Router();
 router.post('/recipes', createRecipe);
 router.get('/recipes', getRecipes);
 router.delete('/recipes/:id', deleteRecipe);
-
 router.patch('/recipes/:id/favorite', toggleFavorite);
 
 export default router;

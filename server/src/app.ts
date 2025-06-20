@@ -1,10 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import router from './routes/recipe';
 import cors from 'cors';
-import path from 'path'
+import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-
 // Middleware для отключения кеширования API
 const noCacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
@@ -30,9 +32,9 @@ app.get('/api/recipes', noCacheMiddleware);
 // основной роутер
 app.use('/api', router);
 
-export const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
 if (process.env.NODE_ENV === 'production') {
