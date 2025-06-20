@@ -4,9 +4,8 @@ services:
     runtime: node
     buildCommand: |
       cd server &&
-      npm install && 
-      npm run build && 
-      npm prune --production
+      npm install --include=dev &&
+      npm run build
     startCommand: |
       cd server &&
       node dist/app.js
