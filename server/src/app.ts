@@ -7,6 +7,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+
+app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+});
 // Middleware для отключения кеширования API
 const noCacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
