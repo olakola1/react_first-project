@@ -59,6 +59,10 @@ const recipeSlice = createSlice({
             .addCase(deleteRecipeFromServer.fulfilled, (state, action) => {
                 state.loading = false;
                 state.items = state.items.filter(recipe => recipe.id !== action.payload);
+
+                if (state.items.length === 0) {
+                    state.items = [];
+                }
             })
             .addCase(deleteRecipeFromServer.rejected, (state, action) => {
                 state.loading = false;

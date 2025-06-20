@@ -54,7 +54,7 @@ class Recipe extends Model<RecipeAttributes, RecipeCreationAttributes> implement
                 allowNull: false
             },
             image: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: true
             },
             isFavorite: {
@@ -90,10 +90,6 @@ class Database {
             Database.instance = new Database();
         }
         return Database.instance;
-    }
-
-    public getSequelize(): Sequelize {
-        return this.sequelize;
     }
 
     private initializeModels(): void {
@@ -147,7 +143,6 @@ class Database {
     }
 }
 
-// Инициализация базы данных при импорте модуля
 const database = Database.getInstance();
 database.testConnection();
 

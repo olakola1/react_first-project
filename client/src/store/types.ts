@@ -13,3 +13,10 @@ export interface RecipeToCreate {
     time: number;
     image?: string;
 }
+
+export interface RecipeFormErrors {
+    title?: string;
+    ingredients?: string;
+    time?: string;
+    image?: string;
+}

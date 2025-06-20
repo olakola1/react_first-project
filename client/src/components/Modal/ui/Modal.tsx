@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from './style.module.scss';
-import { Recipe } from '../../../store/types.ts';
+import { Recipe, RecipeFormErrors } from '../../../store/types.ts';
 import { ChangeEvent } from "react";
 
 export interface ModalIProps {
