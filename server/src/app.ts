@@ -13,7 +13,7 @@ interface NodeError extends Error {
 const app = express();
 
 app.get('/api', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 // Middleware для отключения кеширования API
 const noCacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
