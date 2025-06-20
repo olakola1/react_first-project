@@ -31,9 +31,9 @@ services:
       DB_USER: postgres
       DB_PASSWORD: mysecretpassword
     volumes:
-      - ./server:/app
-      - /app/node_modules
-    working_dir: /app
+      - ./server:/server
+      - /server/node_modules
+    working_dir: /server
 
 volumes:
   postgres_data:

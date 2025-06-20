@@ -9,8 +9,8 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const app = (0, express_1.default)();
-app.get('/api', (req, res) => {
+const server = (0, express_1.default)();
+server.get('/api', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '../client/dist', 'index.html'));
 });
 // Middleware для отключения кеширования API
@@ -21,20 +21,20 @@ const noCacheMiddleware = (req, res, next) => {
     next();
 };
 // Настройки CORS
-app.use((0, cors_1.default)({
+server.use((0, cors_1.default)({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
 // Парсинг JSON и URL-encoded данных
-app.use(express_1.default.json({ limit: '10mb' }));
-app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
+server.use(express_1.default.json({ limit: '10mb' }));
+server.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
 // Применяем noCacheMiddleware только к GET /api/recipes
-app.get('/api/recipes', noCacheMiddleware);
+server.get('/api/recipes', noCacheMiddleware);
 // основной роутер
-app.use('/api', recipe_1.default);
+server.use('/api', recipe_1.default);
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 }).on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
@@ -44,9 +44,9 @@ app.listen(PORT, () => {
 });
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path_1.default.resolve();
-    app.use(express_1.default.static(path_1.default.join(__dirname, '../frontend/dist')));
-    app.get('*', (req, res) => {
+    server.use(express_1.default.static(path_1.default.join(__dirname, '../frontend/dist')));
+    server.get('*', (req, res) => {
         res.sendFile(path_1.default.join(__dirname, '../frontend/dist', 'index.html'));
     });
 }
-exports.default = app;
+exports.default = server;

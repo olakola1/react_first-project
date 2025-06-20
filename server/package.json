@@ -1,10 +1,10 @@
 {
-  "main": "dist/app.js",
+  "main": "dist/server.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
+    "dev": "nodemon -r dotenv/config src/server.ts dotenv_config_path=.env.development",
     "build": "npm install --include=dev && tsc",
-    "start": "node -r dotenv/config dist/app.js dotenv_config_path=.env.production"
+    "start": "node -r dotenv/config dist/server.ts dotenv_config_path=.env.production"
   },
   "dependencies": {
     "body-parser": "^2.2.0",

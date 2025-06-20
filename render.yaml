@@ -3,12 +3,10 @@ services:
     name: recipes-backend
     runtime: node
     buildCommand: |
-      cd server &&
-      npm install --include=dev &&
+      npm install
       npm run build
     startCommand: |
-      cd server &&
-      node dist/app.js
+      npm start
     envVars:
       - key: DATABASE_URL
         fromDatabase:
